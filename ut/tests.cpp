@@ -57,6 +57,7 @@ TEST(PolyComplexTests, Multiplication) {
 TEST(PolyComplexTests, Division) {
     const CP a{ Complex(1.0), Complex(5.0) };
     const CP b{ Complex(2.0), Complex(10.0) };
+
     EXPECT_EQ(a / b, 0.5);
     EXPECT_EQ(b / a, Complex(2.0));
     EXPECT_EQ(2.0 / a, -0.2);
@@ -64,7 +65,28 @@ TEST(PolyComplexTests, Division) {
 }
 
 TEST(PolyComplexTests, Subscription) {
+    const std::vector<Complex> coefficients{ Complex(1.0, 2.0), Complex(3.0, 4.0) };
+    CP a(coefficients.cbegin(), coefficients.cend());
+    EXPECT_THAT(coefficients, ::testing::ElementsAreArray(a.cbegin(), a.cend()));
+
+    EXPECT_EQ(a.begin(), a.cbegin());
+    EXPECT_EQ(a.end(), a.cend());
+
+    Complex aFirst{ a[0] };
+    EXPECT_EQ(aFirst, Complex(1.0, 2.0));
+
+    Complex aLast{ a[1] };
+    EXPECT_EQ(aLast, Complex(3.0, 4.0));
+
+    aFirst = Complex(5.05, -12.0);
+    a[0] = aFirst;
+    EXPECT_EQ(a[0], aFirst);
 }
 
 TEST(PolyComplexTests, Unary) {
+    const CP a{ Complex(1.5, 5.2), Complex(), Complex(-0.15, -0.25) };
+    const CP negativeA{ Complex(-1.5, -5.2), Complex(), Complex(0.15, 0.25) };
+
+    EXPECT_EQ(+a, a);
+    EXPECT_EQ(-a, negativeA);
 }
