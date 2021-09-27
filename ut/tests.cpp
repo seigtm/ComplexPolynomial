@@ -75,7 +75,7 @@ TEST(PolyComplexTests, Subscription) {
     Complex aFirst{ a[0] };
     EXPECT_EQ(aFirst, Complex(1.0, 2.0));
 
-    Complex aLast{ a[1] };
+    const Complex aLast{ a[1] };
     EXPECT_EQ(aLast, Complex(3.0, 4.0));
 
     aFirst = Complex(5.05, -12.0);
